@@ -1,0 +1,53 @@
+@font-face {
+  font-family: "Tedeschi";
+  src: url(/assets/font/tedeschi.ttf) format("truetype");
+}
+
+body {
+  background-color: #fff;
+  font-family: "Arial";
+}
+
+#header {
+  width: 75%;
+  height: 100px;
+  margin: 25px auto;
+  font-family: "Tedeschi";
+  font-size: 100px;
+}
+
+#nav {
+  text-align: center;
+  margin-top: 25px;
+}
+
+#nav a {
+  font-size: 30px;
+  color: #000;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+#nav li {
+
+}
+
+#atom {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+#content {
+  text-align: center;
+}
+
+.column {
+  width: 33%;
+  float: left;
+}
+
+.heading {
+  /*font-family: "Tedeschi";*/
+  color: #FF00FF;
+  font-size: 50px;
+}
