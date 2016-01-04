@@ -27,3 +27,9 @@ h1 {
 .tumblr-post {
   margin: 0 auto;
 }
+
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
