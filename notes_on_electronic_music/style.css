@@ -1,0 +1,17 @@
+body {
+  background-image: url(http://texturelib.com/Textures/grass/grass/grass_grass_0099_02_preview.jpg);
+  color: #fff  ;
+}
+
+h1 {
+  text-align: center;
+}
+
+#content {
+  font-weight: bold;
+  width: 70%;
+  background-color: 000;
+  min-width: 500px;
+  max-width: 800px;
+  margin: 0 auto;
+}

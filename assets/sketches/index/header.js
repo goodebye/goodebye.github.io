@@ -37,7 +37,7 @@ var headerSketch = function(p) {
       p.scale(.17);
 
       var letter = headerString.charAt(i);
-      // p.tint((colorOffset + (i / headerString.length) * 100) % 100, 100, 60);
+      p.tint((colorOffset + (i / headerString.length) * 100) % 100, 100, 60);
       if (letter != " ")
         p.image(letterDrives[letter], 0, 0);
       // p.text(letter, p.width / headerString.length * i, p.height / 1.5);
