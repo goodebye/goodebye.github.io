@@ -1,0 +1,29 @@
+body {
+  background-color: 000;
+}
+
+#content {
+  margin: 0 auto;
+  width: 70%;
+  min-width: 500px;
+  color: #fff;
+}
+
+#content a {
+  color: #ff1fa2;
+}
+
+h1 {
+  text-align: center;
+  color: #11F1FF;
+  font-size: 16px;;
+}
+.emphasis {
+  color: #ff401f;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.tumblr-post {
+  margin: 0 auto;
+}

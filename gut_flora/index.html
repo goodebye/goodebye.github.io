@@ -1,0 +1,155 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="/assets/gut_flora/style.css"></link>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+  <title>GUT FLORA - A CHAPBOOK BY GOODE BYE</title>
+</head>
+
+<body>
+  <script src="https://gumroad.com/js/gumroad-embed.js"></script>
+  <div class="gumroad-product-embed" data-gumroad-product-id="gut-flora-goode-bye" data-outbound-embed="true"><a href="https://gumroad.com/l/gut-flora-goode-bye">Loading...</a></div>
+
+  <div id="content">
+    <div id="intro">
+      <h1>INTRO</h1>
+      <p>
+        <span class="emphasis">GUT FLORA</span> is a collection of poems i composed from approximately august/september 2013 to approximately october 2014. both the cover and interior art were procedurally generated. those in the pdf were chosen from an infinite number of possible iterations. a run of physical copies of this book - each of which will be unique and procedurally generated - are likely in the near future via <a href="http://bottlecappress.com" target="_blank">bottlecap press</a>.
+      <p>
+      <p>
+        <a href="#tech">↓↓↓ click here ↓↓↓</a> for a post-mortem on the technical aspects of gut flora
+        <br />
+        <a href="#poetics">↓↓↓ click here ↓↓↓</a> for a post-mortem on the poetics of gut flora (originally published on my tumblr)
+    </div>
+    <div id="tech">
+      <h1>TECHNICAL EXPLANATION</h1>
+      <p>
+        mostly by necessity, every tool used to create GUT FLORA is freely available and works on every major operating system. least interestingly, composing the poems themselves primarily took place on a google doc. the typesetting and layout - both of which were rather uncomplicated - were done using <a href="http://libreoffice.org" target="_blank">libreoffice</a>. the cover and interior art were creating using the computer art framework and programming language, <a href="http://processing.org" target="_blank">processing</a>, which is what i will be focusing on here. this is written such that nontechnical people can at least mostly understand what is happening and why certain decisions were made so pls keep this in mind if you feel like you are being patronized ok!
+      </p>
+      <p>
+        a tiny plug: processing is one of the best pieces of software ever made imo!!! without it i wouldn't be making visual art, like, at all. i will write more about processing in depth later but if you are even in the slightest bit curious about how to use code to make art, please consider doing <a href="hello.processing.org" target="_blank">the hour of code</a> by daniel shiffman. no experience required! very gentle introduction, i promise. anyone can do it because daniel shiffman is such a thoughtful goofball. i luv him.
+      </p>
+      <p>
+        so the front and back covers of gut flora consist of a background which is a gradient underneath a maze and a cube which is tilted such that three of its faces are visible. the general process goes like this:
+        <ol>
+          <li>the previous cover is loaded into memory</li>
+          <li>two colors are chosen at random using my own crummy Pretty Color Picker Algorithm (overstatement of its complexity tbh, the actual thing is v simple) for the background gradient</li>
+          <li>the gradient is drawn</li>
+          <li>a color is chosen at random using aforementioned algorithm and used as the color for the maze</li>
+          <li>the maze is drawn</li>
+          <li>a cube is drawn whose sides are textured using the previous cover which was loaded into memory</li>
+          <li>the output is saved</li>
+          <li>repeat</li>
+        </ol>
+        does this make sense? the recursive part is the previous cover is used as the sides of the current cube, so each cover contains all previous iterations "in" its cube (because that cube is textured using the cover before that, which contains a cube which is textured with the cover before that, ad infinitum, u get it).
+      </p>
+      <p>
+        the code for the gradient and the code for the geometry of the cube are slight tweaks of existing processing snippets that someone else wrote and i won't go into much detail regarding those. for now, i'll just go in depth re: how the maze works and how i picked colors. the code for the maze is my adaption of a classic commodore 64 oneliner known as "10 print chr$(205.5+rnd(1)) goto 10."
+      </p>
+      <center><iframe width="420" height="315" src="https://www.youtube.com/embed/m9joBLOZVEo" frameborder="0" allowfullscreen></iframe></center>
+      <p>
+        the way this works on the commodore 64 is the computer does the computer equivalent of flipping a coin to choose either a forward slash ("/") or a backslash ("\") to display as the next character, over and over again, forever. this provides the impression of a neverending maze, but if you pause the video at any point and look closely, there are empty pockets and dead ends and closed circuits and so on. there's no real entry and there's no real exit. it is a nifty, hacky illusion!
+      </p>
+      <p>
+        i learned about this oneliner from the very good book <a href="http://10print.org/" target="_blank">10 print chr$(205.5+rnd(1)) goto 10"</a> which is by a bunch of really great people. it's a multi-lens analysis/examination/whatever of creative computing which stretches into broader symbolic musings about mazes in general and lots of other stuff. it's a rly accessible text that offers a lot of rich, nourishing insight imo. what's better is that it's available for free online, legally!!!! nice!! you can find a link to the pdf at the previous link but in case you are lazy you can <a href="http://nickm.com/trope_tank/10_PRINT_121114.pdf" target="_blank">click here</a> to download the pdf. i really really really recommend you at least read the introduction. i actually pulled from this book a little bit for the poems themselves. the symbolism of having an infinite maze which is unsolveable, just a series of deadends, an opaque mystery, etc., felt perfectly complementary to the "themes" of the book. the parts about knossos labyrinth and dances were especially potent to me and ended up being incorporated into the final poem.
+      </p>
+      <p>
+        so my goal was to somehow recreate this particular maze-like illusion using processing. to do this i again did the computer equivalent of flipping a coin but instead of drawing a forward slash or a backslash i subdivided the canvas into "cells" (i think the final grid is 30x30) which were either occupied by a line whose starting point is in the top left of the cell and terminates in the bottom right of the cell or whose starting point is in the bottom left of the cell and terminates in the top right of the cell. just diagonal lines. in code this looks pretty much like this:
+        <pre>
+          //this takes place in draw()
+
+          int spacing = width / 30;
+          for (int i = 0; i < width; i += spacing) {
+            for (int j = 0; j < height; j += spacing) {
+              int x1 = i;
+              int x2 = i + spacing;
+              int y1, y2;
+
+              int coinFlip = round(random(0, 1));
+
+              if (coinFlip == 1) {
+                y1 = j + spacing;
+                y2 = j;
+              } else {
+                y1 = j;
+                y2 = j + spacing;
+              }
+
+              color maze_color = color(0, 0, 0);
+              stroke(maze_color);
+
+              line(x1, y1, x2, y2);
+            }
+          }
+        </pre>
+      </p>
+      <p>
+        this is a simplified version intended to illustrate the underlying conceps and excludes a several tweaks to make it look clean and pretty at high resolutions and do all of the color stuff. but all in all the maze is a simple thing! so we have the skeleton of the maze, but making the colors of the background not only unique to each iteration but also pretty and interesting to look at was harder!
+      </p>
+      <p>
+        the pretty color picking algorithm is really hacky and also not even that good in retrospect! you might already know that on computers, colors are primarily written as red, green and blue values. this is closest to the way pixels actually work (as they mix these colors together), but more sensical ways to write colors exist which i would've used in retrospect (specifically <a href="https://en.wikipedia.org/wiki/HSL_and_HSV" target="_blank">the HSL color space</a> make a lot of sense for this task and would've made my life a lot easier and probably made the end result more consistently good! maybe in the versions which get printed i will see if HSL makes things better). hindsight etc., etc...but here's how my pretty color picker works!
+      <p>
+      <p>
+        in plain english, what i do is i pick color values between 30 and 255 for the r, g, and b of a color, then check to see if they're all too low (under 65, in this case). if they are, i pick one of the color channels at random and then make that one a really high value! a very naive approach from when i was first learning how to do color stuff but the end result is actually pretty consistently pretty and strange! no complex complementary color algorithms, i just run this every time i need a bright color and this spits one out. if i ever do an HSV version i'll post that here, but the code for this one is like this:
+        <pre>
+          color random_color() {
+            int low_color = 30;
+            int high_color = 255;
+
+            int r = int(random(low_color, high_color));
+            int g = int(random(low_color, high_color));
+            int b = int(random(low_color, high_color));
+
+            int threshold = 65;
+
+            if (r < threshold && g < threshold && b < threshold) {
+              int coin_toss = floor(random(0, 3));
+              if (coin_toss == 0) {
+                r = int(random(200, 255));
+              }
+              else if (coin_toss == 1) {
+                g = int(random(200, 255));
+              }
+              else if (coin_toss == 2) {
+                b = int(random(200, 255));
+              }
+            }
+            return color(r, g, b);
+          }
+        </pre>
+      </p>
+      <p>
+        see! procedural generation is pretty simple and not that scary! if i run my processing sketch repeatedly i get covers like this.
+      </p>
+      <center>
+        <div class="tumblr-post" data-href="https://embed.tumblr.com/embed/post/wy-imXhJVc9E2XQQT9yFgA/101402120763" data-did="5a1b95f2bef3534debf8a6df4a0513908370024d"><a href="http://goode-bye.tumblr.com/post/101402120763/just-a-few-examples-of-the-infinite-possible">http://goode-bye.tumblr.com/post/101402120763/just-a-few-examples-of-the-infinite-possible</a></div><script async src="https://secure.assets.tumblr.com/post.js"></script>
+      </center>
+      <p>
+        i'm going to write more on how the interior squiggle art works and upload the processing sketches for both soon for people to play with if they want to!
+      </p>
+      <p>
+        <center>
+          <a href="#intro">↑↑↑ back to intro ↑↑↑</a>
+        </center>
+      </p>
+    </div>
+    <div id="poetics">
+      <h1>EXPLANATION OF POETIC ORIENTATION</h1>
+      [n.b. this was written as a more general survey of my feelings abt poetry around the time of this book's publication. i have edited it to better fit the intent and tone of this page, but only gently. i don't really agree with all of these points anymore but i'm going to honor the fact that i felt this way once.]
+      <p>some highly reductive, completely subjective feelings re: poetics that have informed the way i write lately:</p>
+      <p>poetry which is primarily concerned with an ‘i’ speaker’s perceptions/feelings constitutes a lot of alt lit and contemporary lit, generally. i’m starting to feel like sometimes ppl are employing this rhetorical strategy not because the subject matter necessitates it but because it is a ‘cheap’ signifier. ‘cheap’ here not used pejoratively, but as a mechanical property of the method, a kind of efficiency which short circuits.<br></p>
+      <p>a first person narrator whose primary role in the poem is relaying events and perceptions grants a piece the context of shared experience, making it easier to convince the reader to become engage without much reservation in part because inhabiting a body is a familiar thing, inhabiting a train-of-thought is a familiar thing, etc. in alt lit this technique is especially common, so common that sometimes it seems it’s created a predominating voice that is co-opted/modified/added to as time goes on but still remains to some degree homogeneous: flatly affected, observational, feeling and perception based narration with some variation but almost always fundamentally concerned with an ‘i’ speaker or central protagonist whose perceptions/experiences constitute the whole of the poem (which is not to say i think alt lit as a whole is homogeneous, because it’s not, but it is endemic to certain mags/writers/etc). i don’t know how i feel about this. i think one of the central pillars of contemporary poetics is anything can be called literature, you know, anything can be poetry. which is good because the Academic Canon is terrible at pretty much everything except enforcing strictures which violently exclude certain voices (esp. marginalized ones). i feel like the dismantling of the existing canon should have allowed marginalized voices to relay experience which may not fit the dominating, canonical experience, but in practice i feel that a lot of alt lit upholds/enforces the existing narratives and rhetorical strategies of its own newly minted canon rather than diversifying voices. it’s rare that i feel like alt lit poetry/prose is experimenting with new ways to relay information which seems….odd.</p>
+      <p><a href="https://31.media.tumblr.com/b325ebdc59516dc4ea5d8506155d0f07/tumblr_nay95vR5iH1taqmvco1_1280.png" title="(link to larger image)"></a></p><a href="https://31.media.tumblr.com/b325ebdc59516dc4ea5d8506155d0f07/tumblr_nay95vR5iH1taqmvco1_1280.png" title="(link to larger image)"><img src="https://38.media.tumblr.com/b325ebdc59516dc4ea5d8506155d0f07/tumblr_inline_nefyvvr3iX1t35e4g.png" alt="image"></a><p></p>
+
+      <p>(<a href="https://31.media.tumblr.com/b325ebdc59516dc4ea5d8506155d0f07/tumblr_nay95vR5iH1taqmvco1_1280.png">link to larger image</a>)</p>
+      <p>this is a category-theory inspired map of the process of Art that i made. the idea is that if you create familiar syntactic data (bodily experiences, voices, etc.), the work of parsing that syntactic data into semantic data is easier for the reader. appropriating a common voice does a lot of heavy lifting w/r/t context and makes things more immediately evocative, immediately engages the sympathies and compassion of the reader through the process of obligatory identification of the self in the other. the straightforward pith of an unornamenal poetic compresses experience, making it more Optimal to deliver Feelings to the reader, cheaper. if a reader approaches a piece written in that familiar voice, one which is a part of a greater poetic lineage which overlaps with their own voice, the brunt of the work of connecting with that reader has already been done well in advance. in a lot of ways this can be really good because at that point, with the reader’s trust, you can subvert expectation and relay things that may have otherwise been a lot harder without that immediate trust. but as the syntactic data becomes more familiar the reader is going to derive less new semantic data. information is often lost in compression.</p>
+      <p>the constraint of a feelings-based/perceptual/experiential narration precludes poets from talking about things that can’t be ‘experienced’ in a conventional way. alt lit poems about loss are about the <italic>feelings</italic> of losing someone/something rather than the separate event of loss and what it is, alt lit poems about love are concerned with the <italic>feelings</italic> of loving another person rather than what love is, the process, etc...i’ve found myself increasingly interested in what things would look like if i stopped trying to identify them in relation to myself and what the removal of the human center can say about the fundamental/atomic nature of the Thing i'm trying to examine. mostly i’ve been trying to understand what it <italic>is</italic> rather than what it is to me. like, what if i tried to define things from scratch, not in relation to my own experiences? does that make sense?</p>
+      <p>[following: thematic spoilers of GUT FLORA, a book which is designed to be read almost like one would try to glue together a shattered vase, so if you’re interested in trying to understand without hints you should definitely read the book first. also yr interpretation takes precedence over mine so don’t let this affect yr reading either]</p>
+      <p>my goal with GUT FLORA was to write death poems that never say ‘dead’ or ‘death’ or ‘dying’ or anything explicitly about those things. death poems that are about relational experiences i typically find boring/sentimental and inaccurately portray the Thing itself. death can only be suggested. it cannot be seen or touched. phantom phenomena can’t really be portrayed relationally without losing information in the process. so i wanted to imitate the inapprehensibility of death structurally in the poems by ‘painting around’ it, by suggesting an absence at the center of Everything, something hidden away or encrypted or otherwise unknowable. this is hard to do if yr primary rhetorical strategy is to relay direct experience using a voice that has aesthetic baggage and existing associations. a first person speaker is suggested in the work (there are two i’s in the 12 poems that are written with alphabetic characters -- the one in binary is a little different and you can think abt why yrself) but the speaker’s presence in the narrative is deliberately ambiguous/puzzling/’distant.’ there is an amorphous ‘you’ referred to frequently whose identity is also obfuscated, ‘the witness.’ the images are ‘sensory,’ to some degree, but most are not based in an experiential reality. so the biggest questions i want the reader to be trying to answer while reading are ‘why is this here when it could not be here? what does its presence suggest?’ the answers exist in the text as an intricate web of connected images and concepts that can be untangled. but they can’t just be given away. they have to be revealed, confronted on an individual basis, or else information is lost in the process. something i realized in the process of trying to smartly obscure in my writing lately (and to some degree while writing GUT FLORA) is that if a sentence/line came to me naturally then it probably came from somewhere else. so my approach was to think of the way to write a given sentence/line that came intuitively and deciding not to write it that way, to pick the third or fourth or fifth iteration until i found something which was so new to me as to be alien.</p>
+      <p>
+        <center>
+          <a href="#intro">↑↑↑ back to intro ↑↑↑</a>
+        </center>
+      </p>
+    </div>
+  </div>
+</body>
