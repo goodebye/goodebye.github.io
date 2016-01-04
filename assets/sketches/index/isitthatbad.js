@@ -11,6 +11,7 @@ var atomSketch = function(p) {
     p.ambientLight(0, 0, 1000);
     p.ambientLight(255);
     p.pointLight(250, 250, 250, 100, 100, 0);
+    p.scale(1.4);
 
     p.rotateX(p.mouseY / 150);
     p.rotateY(p.mouseX / 150);
