@@ -1,0 +1,17 @@
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+#title-screen {
+  background-image: url(assets/title_screen.gif);
+  height:100vh;
+  background-size:cover;
+  background-position: center center;
+}
+
+#runes {
+  font-size: 50px;
+  text-align: center;
+  word-wrap: break-word;
+}
