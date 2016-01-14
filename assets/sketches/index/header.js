@@ -12,7 +12,6 @@ var headerSketch = function(p) {
     headerString = "GOODE BYE";
     setFontSize();
 
-    p.textFont("Tedeschi");
     p.colorMode(p.HSL, 100);
 
     for (var i = 0; i < headerString.length; i++) {

@@ -1,0 +1,18 @@
+body {
+  background-image: url(bg.png);
+  background-repeat: repeat;
+}
+
+.section {
+  width: 60%;
+  min-width: 500px;
+  font-size: 20px;
+}
+
+a {
+  color: #fff;
+}
+
+h1 {
+  font-size: 25px;
+}
