@@ -1,0 +1,19 @@
+body {
+  background-image: url(millennials_smaller.jpg);
+  color: #000;
+}
+
+h1 {
+  text-align: center;
+  background-color: #fff;
+}
+
+#content {
+  font-weight: bold;
+  width: 50%;
+  background-color: #fff;
+  min-width: 500px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px;
+}
