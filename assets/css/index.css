@@ -50,5 +50,20 @@ body {
 .heading {
   /*font-family: "Tedeschi";*/
   color: #FF00FF;
-  font-size: 20px;
+  font-size: 50px;
+  padding: 10px;
+  font-style: italic;
+}
+
+.tiny {
+  font-size: 8px;
+  color: #CCCCCC;
+}
+
+.emoji-heading {
+  font-size: 2em;
+}
+
+.work-section {
+  padding: .5em;
 }
