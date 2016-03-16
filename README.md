@@ -1,1 +1,1 @@
-this is my website [goodebye.com](goodebye.com)
+this is my website [http://goodebye.com](goodebye.com)
