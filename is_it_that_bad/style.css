@@ -15,8 +15,8 @@ p {
 
 .cover {
   margin: 0 auto;
-  max-height: 350px;
-  max-width: 350px;
+  max-height: 550px;
+  max-width: 550px;
   padding: 25px;
 }
 
@@ -44,7 +44,7 @@ p {
 	text-align: center;
 	background-color: #fff;
 	width: 70%;
-	min-width: 500px;
+	min-width: 550px;
 	padding-bottom: 30px;
 }
 
@@ -53,5 +53,5 @@ p {
 	font-size: 30px;
 	text-align: center;
 	width: 70%;
-	min-width: 500px;
+	min-width: 550px;
 }
