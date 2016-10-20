@@ -1,0 +1,57 @@
+body {
+    background: #FFFF88; /* For browsers that do not support gradients */
+    font-family: "Droid Serif";
+}
+
+.content {
+
+}
+
+p {
+	background-color: #000;
+	font-size: 20px;
+	color: #fff;
+}
+
+.cover {
+  margin: 0 auto;
+  max-height: 550px;
+  max-width: 550px;
+  padding: 25px;
+}
+
+.cover img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+
+.tracklist-heading {
+	font-style: italic;
+	font-weight: 700;
+	padding: 30px;
+	font-size: 20px;
+	letter-spacing: 20px;
+	margin: 0 auto;
+	text-align: center;
+	background-color: #000;
+	color: #fff;
+}
+
+.tracklist {
+	font-size: 18px;
+	margin: 0 auto;
+	text-align: center;
+	background-color: #fff;
+	width: 70%;
+	min-width: 550px;
+	padding-bottom: 30px;
+}
+
+#explanation {
+	margin: 0 auto;
+	font-size: 30px;
+	text-align: center;
+	width: 70%;
+	min-width: 550px;
+}
